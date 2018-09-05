@@ -1,0 +1,8 @@
+{
+  "short_name": "bookings-cart",
+  "name": "bookings-cart",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
