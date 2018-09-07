@@ -13,19 +13,38 @@ npm install --save bookings-cart
 ## Usage
 
 ```jsx
-import React, { Component } from 'react'
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-import MyComponent from 'bookings-cart'
+// eslint-disable-next-line
+import polyfill from 'babel-polyfill'
 
-class Example extends Component {
-  render () {
-    return (
-      <MyComponent />
-    )
-  }
-}
+import {createStore, applyMiddleware, compose, combineReducers} from 'redux';
+import {Provider} from 'react-redux';
+import createSagaMiddleware from 'redux-saga';
+
+import {Cart, cartReducer, cartSaga} from 'bookings-cart';
+
+
+const sagaMiddleware = createSagaMiddleware()
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(
+    combineReducers({
+        bookings: cartReducer
+    }),
+    composeEnhancers(applyMiddleware(sagaMiddleware)),
+)
+
+sagaMiddleware.run(cartSaga)
+
+ReactDOM.render(
+    <Provider store={store}>
+        <Cart/>
+    </Provider>,
+    document.getElementById('root')
+);
 ```
 
 ## License
 
-MIT © [jamie-ga](https://github.com/jamie-ga)
+MIT © [gadventures](https://github.com/gadventures)
