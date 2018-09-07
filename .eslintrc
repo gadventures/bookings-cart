@@ -1,5 +1,9 @@
 {
   "parser": "babel-eslint",
+  "globals": {
+    "fetch": false,
+    "Request": false,
+  },
   "extends": [
     "standard",
     "standard-react"
@@ -18,6 +22,15 @@
     "space-before-function-paren": 0,
 
     // allow specifying true explicitly for boolean props
-    "react/jsx-boolean-value": 0
+    "react/jsx-boolean-value": 0,
+
+    "indent": "off",
+    "react/jsx-indent": "off",
+    "react/jsx-indent-props": "off",
+    "react/prop-types": "off",
+    "generator-star-spacing": "off",
+    "padded-blocks": "off",
+    "keyword-spacing": "off",
+    "react/no-did-update-set-state": "off"
   }
 }
