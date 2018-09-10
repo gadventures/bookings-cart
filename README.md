@@ -46,7 +46,8 @@ ReactDOM.render(
 ```
 
 ## Preview: 
-[]()
+
+![bookings-cart-ux](https://user-images.githubusercontent.com/12601308/45311194-64bf1900-b4f6-11e8-98bf-8daca793af63.gif)
 
 
 ## License
