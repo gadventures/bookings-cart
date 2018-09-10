@@ -1,20 +1,22 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import Radium from 'radium'
 
 import {FETCH_CART, REMOVE_CART_ITEM} from './constants'
 import {styles} from './styles'
 
-const CartItem = ({booking, bookingType, handleDelete}) => (
+const cartItem = ({booking, bookingType, handleDelete}) => (
     <div style={styles.itemOuter}>
         <div style={styles.itemText}>
-            <a href={booking.link}>
-                <span style={styles.itemName}>{booking.trip_name}</span>
-                <span style={styles.itemMsg}>{booking.departure_msg}</span>
-            </a>
+            <div>
+                <a href={booking.link} style={styles.itemName}>{booking.trip_name} </a>
+            </div>
+            <div style={styles.itemMsg}>{booking.departure_msg}</div>
         </div>
         {bookingType !== 'Confirmed' &&
-            <div>
+            <div style={styles.itemTrashOuter}>
                 <i className='fa fa-trash'
+                    style={styles.itemTrashIcon}
                     onClick={() => handleDelete({
                         bookingType,
                         bookingId: booking.booking_id
@@ -24,6 +26,8 @@ const CartItem = ({booking, bookingType, handleDelete}) => (
         }
     </div>
 )
+
+const CartItem = Radium(cartItem)
 
 @connect(state => ({
     bookings: state.bookings
@@ -44,12 +48,7 @@ export class Cart extends React.Component {
         }
     }
     render() {
-        const {
-            cartStyle,
-            bookings,
-            handleDelete
-        } = this.props
-
+        const { cartStyle, bookings, handleDelete } = this.props
         if(!bookings) {
             return (<div>Loading</div>)
         }
@@ -59,7 +58,7 @@ export class Cart extends React.Component {
                 {!!(in_progress || []).length &&
                     <div>
                         <h4 style={styles.header}>Booked Trips</h4>
-                        <div>
+                        <div style={{flex: 1}}>
                             {in_progress.map(b =>
                                 <CartItem
                                     booking={b}
@@ -88,8 +87,8 @@ export class Cart extends React.Component {
                 }
                 {!!(confirmed || []).length &&
                     <div>
-                        <h4> Awaiting Confirmation </h4>
-                        <div style={styles.header}>
+                        <h4 style={styles.header}> Awaiting Confirmation </h4>
+                        <div>
                             {confirmed.map(b =>
                                 <CartItem
                                     booking={b}

@@ -11,9 +11,8 @@ export const cartReducer = (bookings = null, {type, payload}) => {
             let {bookingId, bookingType} = payload
             return {
                 ...bookings,
-                [bookingType]: {
-                    ...bookings[bookingType].map(x => x.booking_id !== bookingId)
-                }
+                [bookingType]: bookings[bookingType].filter(x => x.booking_id !== bookingId)
+
             }
         default:
             return bookings

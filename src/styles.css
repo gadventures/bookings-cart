@@ -1,0 +1,35 @@
+.header {
+    background-color: #f9f9f9;
+    color: #4c4f56;
+    padding: 15px;
+    margin: 0px;
+}
+
+.itemOuter {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    align-items: 'center';
+    margin: 0;
+    padding: 0;
+}
+.itemText {
+    flex: 8;
+    padding: '10px 15px';
+}
+.itemName {
+    color: '#1589c9';
+    text-decoration: 'none';
+}
+.itemMsg {
+    color: '#abadb0';
+}
+.itemTrashOuter {
+    flex: 1;
+    background-color: #fd7779;
+    padding: 15px;
+    text-align: 'center';
+}
+.itemTrashIcon {
+    color: #fff
+}
