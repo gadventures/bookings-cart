@@ -26,12 +26,13 @@ export const styles = {
     },
     itemTrashOuter: {
         flex: 1,
-        color: '#ddd',
         padding: 15,
         textAlign: 'center',
         ':hover': {
-            backgroundColor: '#fd7779',
-            color: '#fff'
+            backgroundColor: '#fd7779'
         }
+    },
+    itemTrashIcon: {
+        fill: '#efefef',
     }
 }

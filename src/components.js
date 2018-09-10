@@ -5,6 +5,8 @@ import Radium from 'radium'
 import {FETCH_CART, REMOVE_CART_ITEM} from './constants'
 import {styles} from './styles'
 
+import TrashIcon from './trashIcon'
+
 const cartItem = ({booking, bookingType, handleDelete}) => (
     <div style={styles.itemOuter}>
         <div style={styles.itemText}>
@@ -14,14 +16,10 @@ const cartItem = ({booking, bookingType, handleDelete}) => (
             <div style={styles.itemMsg}>{booking.departure_msg}</div>
         </div>
         {bookingType !== 'Confirmed' &&
-            <div style={styles.itemTrashOuter}>
-                <i className='fa fa-trash'
-                    style={styles.itemTrashIcon}
-                    onClick={() => handleDelete({
-                        bookingType,
-                        bookingId: booking.booking_id
-                    })}
-                >delete</i>
+                <div style={styles.itemTrashOuter} onClick={() =>
+                    handleDelete({bookingType, bookingId: booking.booking_id})
+                }>
+                <TrashIcon fill='#ddd' width='25px' height='25px' />
             </div>
         }
     </div>
@@ -50,14 +48,25 @@ export class Cart extends React.Component {
     render() {
         const { cartStyle, bookings, handleDelete } = this.props
         if(!bookings) {
-            return (<div>Loading</div>)
+            return (
+                <div style={cartStyle}>
+                    <h4 style={styles.header}>Loading</h4>
+                </div>
+            )
         }
         const {in_progress, optioned, confirmed} = bookings
+        if(!(in_progress.length || optioned.length || confirmed.length)) {
+            return (
+                <div style={cartStyle}>
+                    <h4 style={styles.header}>No bookings found</h4>
+                </div>
+            )
+        }
         return (
             <div style={cartStyle}>
                 {!!(in_progress || []).length &&
                     <div>
-                        <h4 style={styles.header}>Booked Trips</h4>
+                        <h4 style={styles.header}>Resume Booking</h4>
                         <div style={{flex: 1}}>
                             {in_progress.map(b =>
                                 <CartItem
@@ -72,7 +81,7 @@ export class Cart extends React.Component {
                 }
                 {!!(optioned || []).length &&
                     <div>
-                        <h4 style={styles.header}> In Progress </h4>
+                        <h4 style={styles.header}> Bookings on Option </h4>
                         <div>
                             {optioned.map(b =>
                                 <CartItem
@@ -87,7 +96,7 @@ export class Cart extends React.Component {
                 }
                 {!!(confirmed || []).length &&
                     <div>
-                        <h4 style={styles.header}> Awaiting Confirmation </h4>
+                        <h4 style={styles.header}> Confirmed Bookings </h4>
                         <div>
                             {confirmed.map(b =>
                                 <CartItem
