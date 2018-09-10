@@ -3,9 +3,8 @@ import {connect} from 'react-redux'
 import Radium from 'radium'
 
 import {FETCH_CART, REMOVE_CART_ITEM} from './constants'
-import {styles} from './styles'
-
 import TrashIcon from './trashIcon'
+import {styles} from './styles'
 
 const cartItem = ({booking, bookingType, handleDelete}) => (
     <div style={styles.itemOuter}>
@@ -55,7 +54,7 @@ export class Cart extends React.Component {
             )
         }
         const {in_progress, optioned, confirmed} = bookings
-        if(!(in_progress.length || optioned.length || confirmed.length)) {
+        if(!(!!in_progress.length || !!optioned.length || !!confirmed.length)) {
             return (
                 <div style={cartStyle}>
                     <h4 style={styles.header}>No bookings found</h4>
