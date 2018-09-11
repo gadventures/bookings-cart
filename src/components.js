@@ -32,82 +32,102 @@ const CartItem = Radium(cartItem)
     fetchBookings: payload => dispatch({type: FETCH_CART.REQUEST, payload}),
     handleDelete: payload => dispatch({type: REMOVE_CART_ITEM.REQUEST, payload})
 }))
-export class Cart extends React.Component {
+class CartContents extends React.Component {
+
     state = {pending: true}
+
     componentDidMount() {
         if(!this.props.bookings) {
             this.props.fetchBookings()
         }
     }
+
     componentDidUpdate() {
         if(this.props.bookings && this.state.pending) {
             this.setState({pending: false})
         }
     }
+
     render() {
-        const { cartStyle, bookings, handleDelete } = this.props
+        const { bookings, handleDelete } = this.props
         if(!bookings) {
-            return (
-                <div style={cartStyle}>
-                    <h4 style={styles.header}>Loading</h4>
-                </div>
-            )
+            return <h4 style={styles.header}>Loading</h4>
         }
+
         const {in_progress, optioned, confirmed} = bookings
         if(!(!!in_progress.length || !!optioned.length || !!confirmed.length)) {
-            return (
-                <div style={cartStyle}>
-                    <h4 style={styles.header}>No bookings found</h4>
-                </div>
-            )
+            return <h4 style={styles.header}>No bookings found</h4>
         }
+
         return (
-            <div style={cartStyle}>
-                {!!(in_progress || []).length &&
-                    <div>
-                        <h4 style={styles.header}>Resume Booking</h4>
-                        <div style={{flex: 1}}>
-                            {in_progress.map(b =>
-                                <CartItem
-                                    booking={b}
-                                    key={b.booking_id}
-                                    bookingType='in_progress'
-                                    handleDelete={handleDelete}
-                                />
-                            )}
-                        </div>
+            <div>
+            {!!(in_progress || []).length &&
+                <div>
+                    <h4 style={styles.header}>Resume Booking</h4>
+                    <div style={{flex: 1}}>
+                        {in_progress.map(b =>
+                            <CartItem
+                                booking={b}
+                                key={b.booking_id}
+                                bookingType='in_progress'
+                                handleDelete={handleDelete}
+                            />
+                        )}
                     </div>
-                }
-                {!!(optioned || []).length &&
+                </div>
+            }
+            {!!(optioned || []).length &&
+                <div>
+                    <h4 style={styles.header}> Bookings on Option </h4>
                     <div>
-                        <h4 style={styles.header}> Bookings on Option </h4>
-                        <div>
-                            {optioned.map(b =>
-                                <CartItem
-                                    booking={b}
-                                    key={b.booking_id}
-                                    bookingType='optioned'
-                                    handleDelete={handleDelete}
-                                />
-                            )}
-                        </div>
+                        {optioned.map(b =>
+                            <CartItem
+                                booking={b}
+                                key={b.booking_id}
+                                bookingType='optioned'
+                                handleDelete={handleDelete}
+                            />
+                        )}
                     </div>
-                }
-                {!!(confirmed || []).length &&
+                </div>
+            }
+            {!!(confirmed || []).length &&
+                <div>
+                    <h4 style={styles.header}> Confirmed Bookings </h4>
                     <div>
-                        <h4 style={styles.header}> Confirmed Bookings </h4>
-                        <div>
-                            {confirmed.map(b =>
-                                <CartItem
-                                    booking={b}
-                                    key={b.booking_id}
-                                    bookingType='confirmed'
-                                    handleDelete={handleDelete}
-                                />
-                            )}
-                        </div>
+                        {confirmed.map(b =>
+                            <CartItem
+                                booking={b}
+                                key={b.booking_id}
+                                bookingType='confirmed'
+                                handleDelete={handleDelete}
+                            />
+                        )}
                     </div>
-                }
+                </div>
+            }
+            </div>
+        )
+    }
+}
+
+export class Cart extends React.Component {
+    componentDidMount() {
+        document.addEventListener('mousedown', this.handleClickOutside.bind(this))
+    }
+    componentWillUnmount() {
+        document.removeEventListener('mousedown', this.handleClickOutside)
+    }
+    handleClickOutside(event) {
+        if (this.cartRef && !this.cartRef.contains(event.target)) {
+            this.props.toggleCart()
+        }
+    }
+    render() {
+        return (
+            <div style={this.props.cartStyle}
+                ref={node => this.cartRef = node}>
+                <CartContents />
             </div>
         )
     }

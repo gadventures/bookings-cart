@@ -19,7 +19,8 @@ export const styles = {
     },
     itemName: {
         color: '#1589c9',
-        textDecoration: 'none'
+        textDecoration: 'none',
+        lineHeight: '24px'
     },
     itemMsg: {
         color: '#abadb0'
@@ -33,6 +34,6 @@ export const styles = {
         }
     },
     itemTrashIcon: {
-        fill: '#efefef',
+        fill: '#efefef'
     }
 }

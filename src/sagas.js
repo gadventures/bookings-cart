@@ -7,10 +7,10 @@ import {API} from './api'
 function* removeItem({type, payload}) {
     try {
         const {bookingType, bookingId} = payload
-        yield API.post({
-            url: '/profiles/bookings/remove-item',
+        /*yield API.post({
+            url: 'http://localhost:3001/profiles/bookings/remove-item',
             body: {booking_id: bookingId, booking_type: bookingType}
-        })
+        })*/
         yield put({type: REMOVE_CART_ITEM.SUCCESS, payload})
     } catch(err) {
         console.log('error deleting cart item', err)
