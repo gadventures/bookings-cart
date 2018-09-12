@@ -14,7 +14,7 @@ const cartItem = ({booking, bookingType, handleDelete}) => (
             </div>
             <div style={styles.itemMsg}>{booking.departure_msg}</div>
         </div>
-        {bookingType !== 'Confirmed' &&
+        {bookingType !== 'confirmed' &&
                 <div style={styles.itemTrashOuter} onClick={() =>
                     handleDelete({bookingType, bookingHash: booking.booking_hash})
                 }>
