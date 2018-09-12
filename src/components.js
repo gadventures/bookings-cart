@@ -16,7 +16,7 @@ const cartItem = ({booking, bookingType, handleDelete}) => (
         </div>
         {bookingType !== 'Confirmed' &&
                 <div style={styles.itemTrashOuter} onClick={() =>
-                    handleDelete({bookingType, bookingId: booking.booking_id})
+                    handleDelete({bookingType, bookingHash: booking.booking_hash})
                 }>
                 <TrashIcon fill='#ddd' width='25px' height='25px' />
             </div>

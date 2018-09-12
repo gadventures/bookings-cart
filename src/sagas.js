@@ -6,21 +6,25 @@ import {API} from './api'
 
 function* removeItem({type, payload}) {
     try {
-        const {bookingType, bookingId} = payload
-        /*yield API.post({
-            url: 'http://localhost:3001/profiles/bookings/remove-item',
-            body: {booking_id: bookingId, booking_type: bookingType}
-        })*/
-        yield put({type: REMOVE_CART_ITEM.SUCCESS, payload})
+        const {bookingType, bookingHash} = payload
+        const resp = yield API.post({
+            url: '/profiles/remove-booking/',
+            body: {booking_hash: bookingHash, booking_type: bookingType}
+        })
+        if (resp.status_code >= 200 && resp.status_code < 400) {
+            yield put({type: REMOVE_CART_ITEM.SUCCESS, payload})
+        } else {
+            yield put({type: REMOVE_CART_ITEM.FAILURE, err: resp.data})
+        }
     } catch(err) {
-        console.log('error deleting cart item', err)
         yield put({type: REMOVE_CART_ITEM.FAILURE, err})
     }
 }
 
 function* fetchCart() {
     try {
-        const resp = yield API.get({url: 'http://localhost:3001/bookings'})
+        console.log('fetching from /profiles/bookings')
+        const resp = yield API.get({url: '/profiles/bookings'})
         const payload = yield resp.json()
         yield put({type: FETCH_CART.SUCCESS, payload})
     } catch(err) {

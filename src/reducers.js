@@ -8,11 +8,10 @@ export const cartReducer = (bookings = null, {type, payload}) => {
                 ...payload
             }
         case REMOVE_CART_ITEM.SUCCESS:
-            let {bookingId, bookingType} = payload
+            let {bookingHash, bookingType} = payload
             return {
                 ...bookings,
-                [bookingType]: bookings[bookingType].filter(x => x.booking_id !== bookingId)
-
+                [bookingType]: bookings[bookingType].filter(x => x.booking_hash !== bookingHash)
             }
         default:
             return bookings

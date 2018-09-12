@@ -1,3 +1,7 @@
+function getCookie(name) {
+    let cookie = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)')
+    return cookie ? cookie.pop() : ''
+}
 
 const apiRequest = ({url, method, body = {}, headers}) => {
     const reqMeta = {
@@ -5,12 +9,12 @@ const apiRequest = ({url, method, body = {}, headers}) => {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken'),
             ...headers
-        },
-        mode: 'cors'
+        }
     }
     if (method !== 'GET') {
-        reqMeta.body = body
+        reqMeta.body = JSON.stringify(body)
     }
     return fetch(new Request(url, reqMeta))
 }
