@@ -29,6 +29,7 @@ export const styles = {
         flex: 1,
         padding: 15,
         textAlign: 'center',
+        cursor: 'pointer',
         ':hover': {
             backgroundColor: '#fd7779'
         }

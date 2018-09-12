@@ -119,7 +119,7 @@ export class Cart extends React.Component {
         document.removeEventListener('mousedown', this.handleClickOutside)
     }
     handleClickOutside(event) {
-        if (this.cartRef && !this.cartRef.contains(event.target)) {
+        if (this.cartRef && !!this.props.clickOutsideToClose && !this.cartRef.contains(event.target)) {
             this.props.toggleCart()
         }
     }
