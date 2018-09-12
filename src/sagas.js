@@ -11,7 +11,7 @@ function* removeItem({type, payload}) {
             url: '/profiles/remove-booking/',
             body: {booking_hash: bookingHash, booking_type: bookingType}
         })
-        if (resp.status_code >= 200 && resp.status_code < 400) {
+        if (resp.status >= 200 && resp.status < 400) {
             yield put({type: REMOVE_CART_ITEM.SUCCESS, payload})
         } else {
             yield put({type: REMOVE_CART_ITEM.FAILURE, err: resp.data})
@@ -23,7 +23,6 @@ function* removeItem({type, payload}) {
 
 function* fetchCart() {
     try {
-        console.log('fetching from /profiles/bookings')
         const resp = yield API.get({url: '/profiles/bookings'})
         const payload = yield resp.json()
         yield put({type: FETCH_CART.SUCCESS, payload})
