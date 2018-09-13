@@ -1,5 +1,4 @@
-import {takeEvery} from 'redux-saga'
-import {put} from 'redux-saga/effects'
+import {put, takeLatest, takeEvery} from 'redux-saga/effects'
 
 import {FETCH_CART, REMOVE_CART_ITEM} from './constants'
 import {API} from './api'
@@ -33,7 +32,7 @@ function* fetchCart() {
 
 function* cartSaga () {
     yield takeEvery(REMOVE_CART_ITEM.REQUEST, removeItem)
-    yield takeEvery(FETCH_CART.REQUEST, fetchCart)
+    yield takeLatest(FETCH_CART.REQUEST, fetchCart)
 }
 
 export {cartSaga}
