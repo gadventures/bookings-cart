@@ -2,8 +2,11 @@ export const styles = {
     header: {
         backgroundColor: '#f9f9f9',
         color: '#4c4f56',
-        padding: 15,
-        margin: 0
+        margin: 0,
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+        alignItems: 'center'
     },
     itemOuter: {
         display: 'flex',

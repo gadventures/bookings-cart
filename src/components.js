@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import Radium from 'radium'
+import ReactLoading from 'react-loading'
 
 import {FETCH_CART, REMOVE_CART_ITEM} from './constants'
 import TrashIcon from './trashIcon'
@@ -51,7 +52,10 @@ class CartContents extends React.Component {
     render() {
         const { bookings, handleDelete } = this.props
         if(!bookings) {
-            return <h4 style={styles.header}>Loading</h4>
+            return <h4 style={styles.header}>
+                    <span style={{padding: '10px 40px 10px 20px'}}>Loading</span>
+                    <ReactLoading height={35} width={35} type='bubbles' color='#000' />
+                </h4>
         }
 
         const {in_progress, optioned, confirmed} = bookings
