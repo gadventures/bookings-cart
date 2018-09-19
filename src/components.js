@@ -53,7 +53,7 @@ class CartContents extends React.Component {
         const { bookings, handleDelete } = this.props
         if(!bookings) {
             return <h4 style={{...styles.header, padding: 0}}>
-                    <span style={{padding: '15px 40px 15px 20px'}}>Loading</span>
+                    <span style={{padding: '15px 40px 15px 15px'}}>Loading</span>
                     <ReactLoading height={35} width={35} type='bubbles' color='#000' />
                 </h4>
         }
