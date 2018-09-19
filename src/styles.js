@@ -3,6 +3,7 @@ export const styles = {
         backgroundColor: '#f9f9f9',
         color: '#4c4f56',
         margin: 0,
+        padding: 15,
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'flex-start',
