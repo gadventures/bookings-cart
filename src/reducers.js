@@ -2,16 +2,19 @@ import { FETCH_CART, REMOVE_CART_ITEM } from './constants'
 
 export const cartReducer = (bookings = null, {type, payload}) => {
     switch(type) {
+
         case FETCH_CART.SUCCESS:
-            console.log(FETCH_CART.SUCCESS, {payload})
-            return {
-                ...payload
-            }
+            return { ...payload }
+
         case REMOVE_CART_ITEM.SUCCESS:
-            let {bookingHash, bookingType} = payload
+            let {bookingHash, bookingType} = payload,
+                subset = bookings[bookingType]
             return {
                 ...bookings,
-                [bookingType]: bookings[bookingType].filter(x => x.booking_hash !== bookingHash)
+                [bookingType]: {
+                    ...subset,
+                    items: bookings[bookingType].items.filter(x => x.booking_hash !== bookingHash)
+                }
             }
         default:
             return bookings

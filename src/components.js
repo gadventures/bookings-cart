@@ -38,13 +38,13 @@ class CartContents extends React.Component {
     state = {pending: true}
 
     componentDidMount() {
-        if(!this.props.bookings) {
+        if(!this.props.items) {
             this.props.fetchBookings()
         }
     }
 
     componentDidUpdate() {
-        if(this.props.bookings && this.state.pending) {
+        if(this.props.items && this.state.pending) {
             this.setState({pending: false})
         }
     }
@@ -59,17 +59,21 @@ class CartContents extends React.Component {
         }
 
         const {in_progress, optioned, confirmed} = bookings
-        if(!(!!in_progress.length || !!optioned.length || !!confirmed.length)) {
+        if(!(
+            !!in_progress.items.length ||
+            !!optioned.items.length ||
+            !!confirmed.items.length
+        )) {
             return <h4 style={styles.header}>No bookings found</h4>
         }
 
         return (
             <div>
-            {!!(in_progress || []).length &&
+            {!!(in_progress.items || []).length &&
                 <div>
-                    <h4 style={styles.header}>Resume Booking</h4>
+                    <h4 style={styles.header}>{in_progress.header_title}</h4>
                     <div style={{flex: 1}}>
-                        {in_progress.map(b =>
+                        {in_progress.items.map(b =>
                             <CartItem
                                 booking={b}
                                 key={b.booking_id}
@@ -80,11 +84,11 @@ class CartContents extends React.Component {
                     </div>
                 </div>
             }
-            {!!(optioned || []).length &&
+            {!!(optioned.items || []).length &&
                 <div>
-                    <h4 style={styles.header}> Bookings on Option </h4>
+                    <h4 style={styles.header}>{optioned.header_title}</h4>
                     <div>
-                        {optioned.map(b =>
+                        {optioned.items.map(b =>
                             <CartItem
                                 booking={b}
                                 key={b.booking_id}
@@ -95,11 +99,11 @@ class CartContents extends React.Component {
                     </div>
                 </div>
             }
-            {!!(confirmed || []).length &&
+            {!!(confirmed.items || []).length &&
                 <div>
-                    <h4 style={styles.header}> Confirmed Bookings </h4>
+                    <h4 style={styles.header}>{confirmed.header_title}</h4>
                     <div>
-                        {confirmed.map(b =>
+                        {confirmed.items.map(b =>
                             <CartItem
                                 booking={b}
                                 key={b.booking_id}
