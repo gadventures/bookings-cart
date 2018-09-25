@@ -38,13 +38,13 @@ class CartContents extends React.Component {
     state = {pending: true}
 
     componentDidMount() {
-        if(!this.props.items) {
+        if(!this.props.bookings) {
             this.props.fetchBookings()
         }
     }
 
     componentDidUpdate() {
-        if(this.props.items && this.state.pending) {
+        if(this.props.bookings && this.state.pending) {
             this.setState({pending: false})
         }
     }
