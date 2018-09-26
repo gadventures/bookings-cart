@@ -7,7 +7,7 @@ function* removeItem({type, payload}) {
     try {
         const {bookingType, bookingHash} = payload
         const resp = yield API.post({
-            url: '/profiles/remove-booking/',
+            url: '/cart/remove-booking/',
             body: {booking_hash: bookingHash, booking_type: bookingType}
         })
         if (resp.status >= 200 && resp.status < 400) {
@@ -22,7 +22,7 @@ function* removeItem({type, payload}) {
 
 function* fetchCart() {
     try {
-        const resp = yield API.get({url: '/profiles/bookings'})
+        const resp = yield API.get({url: '/cart/bookings'})
         const payload = yield resp.json()
         yield put({type: FETCH_CART.SUCCESS, payload})
     } catch(err) {
