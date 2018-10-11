@@ -1,6 +1,6 @@
 {
   "name": "g-bookings-cart",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Widget to view G Adventures bookings that are in-progress, optioned and confirmed",
   "author": "jamie-ga",
   "license": "MIT",
