@@ -1,6 +1,6 @@
 {
   "name": "g-bookings-cart",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Widget to view G Adventures bookings that are in-progress, optioned and confirmed",
   "author": "jamie-ga",
   "license": "MIT",
@@ -64,7 +64,6 @@
     "radium": "^0.24.1",
     "react-loading": "^2.0.3",
     "react-redux": "^5.0.7",
-    "react-svg": "^6.0.8",
     "redux": "^4.0.0",
     "redux-saga": "^0.16.0"
   }
