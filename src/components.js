@@ -135,7 +135,7 @@ export class Cart extends React.Component {
         return (
             <div style={this.props.cartStyle}
                 className={this.props.className || ''}
-                ref={node => this.cartRef = node}>
+                ref={node => { this.cartRef = node }}>
                 <CartContents />
             </div>
         )
